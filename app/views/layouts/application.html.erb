@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Form Object Presentation</title>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<% if flash %>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <% flash.each do |type, message| %>
+        <div class="alert alert-<%= type %>"><%= message %></div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<%= yield %>
+
+<%= javascript_include_tag 'application' %>
+
+</body>
+</html>
