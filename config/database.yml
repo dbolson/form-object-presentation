@@ -1,0 +1,24 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: form-object-presentation_development
+  pool: 5
+  username: form-object-presentation
+  password:
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: form-object-presentation_test
+  pool: 5
+  username: form-object-presentation
+  password:
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: form-object-presentation_production
+  pool: 5
+  username: form-object-presentation
+  password:
+
