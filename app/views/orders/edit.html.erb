@@ -3,6 +3,6 @@
     <h1>Update Your Order</h1>
     <h4><%= number_to_currency(@ice_cream.price / 100.0) %></h4>
     <hr />
-    <%= render 'form', ice_cream: @ice_cream %>
+    <%= render 'form', order: @order, url: order_path(@order) %>
   </div>
 </div>
