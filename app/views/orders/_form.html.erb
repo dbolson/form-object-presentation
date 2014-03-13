@@ -1,7 +1,7 @@
-<%= form_for ice_cream, html: { class: 'form-horizontal', role: 'form' } do |f| %>
-  <% if ice_cream.errors.size > 0 %>
+<%= form_for order, as: :order, url: url, html: { class: 'form-horizontal', role: 'form' } do |f| %>
+  <% if order.errors.size > 0 %>
     <ul class="alert alert-danger">
-      <% ice_cream.errors.full_messages.each do |message| %>
+      <% order.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
     </ul>
@@ -41,34 +41,38 @@
             <li>
               <%= label_tag "topping_ids_#{topping.name.parameterize.underscore}" do %>
                 <%= topping.name.titleize %>
-                <%= check_box_tag 'ice_cream[topping_ids][]',
+                <%= check_box_tag 'order[topping_ids][]',
                   topping.id,
-                  ice_cream.toppings.include?(topping),
+                  order.topping_ids.include?(topping.id),
                   id: "topping_ids_#{topping.name.parameterize.underscore}" %>
               <% end %>
             </li>
-            <%= hidden_field_tag 'ice_cream[topping_ids[]', '' %>
           <% end %>
         </ul>
       </div>
     </div>
   </fieldset>
 
-  <% if ice_cream.persisted? %>
+  <% if order.persisted? %>
     <fieldset>
       <legend>Memes</legend>
       <div class="form-group">
-        <%= f.fields_for :memes do |fields| %>
+        <% order.memes.each_with_index do |meme, index| %>
           <div class="col-sm-10">
-            <%= fields.label :name %>
-            <%= fields.text_field :name, html: { class: 'form-control' } %>
+            <% if meme.id %>
+              <%= hidden_field_tag "order[memes][][id]", meme.id %>
+            <% end %>
 
-            <%= fields.label :rating %>
-            <%= fields.select :rating, options_for_select(10.downto(1), fields.object.rating), include_blank: true %>
+            <%= label_tag "order[memes][][name]", 'Name' %>
+            <%= text_field_tag "order[memes][][name]", meme.name %>
+            <%= label_tag "order[memes][][rating]", 'Rating' %>
+            <%= select_tag "order[memes][][rating]", options_for_select(10.downto(1), meme.rating), include_blank: true %>
 
-            <% if fields.object.persisted? %>
-              <%= fields.label :_destroy, 'Delete' %>
-              <%= fields.check_box :_destroy %>
+            <% if meme.id %>
+              <%= label_tag "memes_destroy_#{index}" do %>
+                <%= check_box_tag "order[memes][][_destroy]", 1, false, id: "memes_destroy_#{index}" %>
+                Delete
+              <% end %>
             <% end %>
           </div>
         <% end %>
@@ -77,5 +81,5 @@
   <% end %>
 
   <%= f.submit 'Make It So (Delicious)', class: 'btn btn-primary' %>
-  <%= link_to 'Cancel', ice_creams_path, class: 'btn btn-primary' %>
+  <%= link_to 'Cancel', orders_path, class: 'btn btn-primary' %>
 <% end %>

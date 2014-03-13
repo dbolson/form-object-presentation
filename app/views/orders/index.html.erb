@@ -3,10 +3,10 @@
     <h1>Your Orders</h1>
 
     <div>
-      <%= link_to 'New Ice Cream Order', new_ice_cream_path %>
+      <%= link_to 'New Order', new_order_path %>
     </div>
 
-    <% if @ice_creams.size > 0 %>
+    <% if @orders.size > 0 %>
       <table class="table table-striped">
         <thead>
           <tr>
@@ -17,11 +17,11 @@
         </thead>
 
         <tbody>
-          <% @ice_creams.each do |ice_cream| %>
+          <% @orders.each do |order| %>
             <tr>
-              <td><%= link_to "Order ##{ice_cream.id}", edit_ice_cream_path(ice_cream) %></td>
-              <td><%= number_to_currency(ice_cream.price / 100.0) %></td>
-              <td><%= link_to 'Delete', ice_cream_path(ice_cream), method: :delete %></td>
+              <td><%= link_to "Order ##{order.id}", edit_order_path(order) %></td>
+              <td><%= number_to_currency(order.price / 100.0) %></td>
+              <td><%= link_to 'Delete', order_path(order), method: :delete %></td>
             </tr>
           <% end %>
         </tbody>

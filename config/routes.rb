@@ -1,5 +1,5 @@
 FormObjectPresentation::Application.routes.draw do
-  root to: 'ice_creams#index'
+  root to: 'orders#index'
 
-  resources :ice_creams
+  resources :orders, except: :show
 end
