@@ -24,6 +24,10 @@ class IceCream < ActiveRecord::Base
     super(filtered_toppings)
   end
 
+  def ratings_sum
+    memes.reduce(0) { |memo, meme| memo += meme.rating }
+  end
+
   private
 
   def more_scoops_than_toppings
@@ -33,6 +37,8 @@ class IceCream < ActiveRecord::Base
   end
 
   def set_price
-    self.price = scoops * 100
+    unless price_changed?
+      self.price = scoops * 100
+    end
   end
 end

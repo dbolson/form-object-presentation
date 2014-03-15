@@ -50,11 +50,24 @@ describe IceCream do
     let(:ice_cream) { build_stubbed(:ice_cream, scoops: 2) }
 
     before do
+      ice_cream.price = 50
       ice_cream.save!
     end
 
-    it 'sets the price based on the scoops' do
-      expect(ice_cream.price).to eq(200)
+    context 'when the price changed' do
+      it 'keeps the price the same' do
+        expect(ice_cream.price).to eq(50)
+      end
+    end
+
+    context 'when the price has not changed' do
+      before do
+        ice_cream.save!
+      end
+
+      it 'sets the price based on the scoops' do
+        expect(ice_cream.price).to eq(200)
+      end
     end
   end
 end

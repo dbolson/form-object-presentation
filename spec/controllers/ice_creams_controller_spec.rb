@@ -55,6 +55,10 @@ describe IceCreamsController, :integration do
         expect(ice_cream.memes.size).to eq(Meme.defaults.size)
       end
 
+      it 'calculates the price based on the meme ratings' do
+        expect(ice_cream.price).to eq(116)
+      end
+
       it 'redirects to the edit ice cream order page' do
         expect(response).to redirect_to(edit_ice_cream_path(ice_cream))
       end
@@ -111,7 +115,10 @@ describe IceCreamsController, :integration do
         flavor_id: 1,
         serving_size_id: 1,
         scoops: 2,
-        topping_ids: [1]
+        topping_ids: [1],
+        memes_attributes: {
+          '0' => { name: 'new comment', rating: 10 }
+        }
       }}
 
       before do
@@ -120,6 +127,10 @@ describe IceCreamsController, :integration do
 
       it 'updates the ice cream order' do
         expect(assigns(:ice_cream).scoops).to eq(2)
+      end
+
+      it 'calculates the price based on the meme ratings' do
+        expect(assigns(:ice_cream).price).to eq(210)
       end
 
       it 'redirects back to the edit ice cream order page' do

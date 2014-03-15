@@ -24,6 +24,8 @@ class IceCreamsController < ApplicationController
 
     if @ice_cream.save
       Meme.create_defaults(@ice_cream)
+      meme_ratings = @ice_cream.ratings_sum
+      @ice_cream.update_attributes!(price: @ice_cream.price + meme_ratings)
       redirect_to edit_ice_cream_path(@ice_cream), notice: 'Ice cream was successfully created.'
     else
       render :new
@@ -41,6 +43,8 @@ class IceCreamsController < ApplicationController
     @ice_cream = IceCream.find(params[:id])
 
     if @ice_cream.update_attributes(valid_params)
+      meme_ratings = @ice_cream.ratings_sum
+      @ice_cream.update_attributes!(price: @ice_cream.price + meme_ratings)
       redirect_to edit_ice_cream_path(@ice_cream), notice: 'Ice cream was successfully updated.'
     else
       (3 - @ice_cream.memes.size).times { @ice_cream.memes.build }
