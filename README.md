@@ -12,5 +12,9 @@ We will build a complicated form using the default Rails helpers, and then we'll
 
 ## The Code
 
-`git checkout v1.0` to see the original version using `accepts_nested_attributes_for`.
-`git checkout v2.0` to see the refactored version using form objects.
+### Branches
+
+* __master__ - original version using `accepts_nested_attributes_for`.
+* __new-feature-rails-way__ - original version with additional feature.
+* __form-object-implementation__ - second version using form objects.
+* __new-feature-form-object__ - second version with additional feature.
